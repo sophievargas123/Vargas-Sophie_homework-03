@@ -24,7 +24,7 @@ shoot mass (units: g): mass of aboveground tissue
 
 ## reading in packages
 
-```{r}
+```{r set-up}
 # general use
 library(tidyverse)
 library(readxl)
@@ -52,7 +52,7 @@ drought_exp <- read_xlsx(path = here("data",
 
 ## cleaning
 
-```{r}
+```{r cleaning}
 # cleaning
 drought_exp_clean <- drought_exp %>% 
   clean_names() %>% # nicer column names
@@ -77,7 +77,10 @@ drought_exp_clean <- drought_exp %>%
 
 ## correlations 
 
-```{r}
+```{r correlations-with-ggpairs}
+#| fig-height: 8
+#| fig-width: 8
+
 ggpairs(drought_exp_clean, # data frame
         columns = c("leaf_dry_weight_g", # columns to visualize
                     "sla", 
@@ -109,7 +112,10 @@ In this scenario, we're interested in how three variables affect total biomass: 
 
 ### how does total biomass differ between species?
 
-```{r}
+```{r mass-as-a-function-of-species}
+#| fig-width: 10
+#| fig-height: 5
+
 ggplot(data = drought_exp_clean, # data frame
        aes(x = reorder(species_name, # reordering x-axis
                        -total_g, # in reverse order of mean total mass
@@ -119,11 +125,11 @@ ggplot(data = drought_exp_clean, # data frame
               height = 0) # not jittering points up and down
 ```
 
-**Greindelia has highest biomass, Lotus has lowest, seem to all be different**
+**Grindelia has highest biomass, Lotus has lowest, seem to all be different**
 
 ### how does total biomass differ between water treatments?
 
-```{r}
+```{r mass-as-a-function-of-water-treatment}
 ggplot(data = drought_exp_clean, # data frame
        aes(x = water_treatment, # x-axis
            y = total_g)) + # y-axis
@@ -135,7 +141,7 @@ ggplot(data = drought_exp_clean, # data frame
 
 ### how does specific leaf area (SLA) influence total biomass?
 
-```{r}
+```{r mass-as-a-function-of-sla}
 ggplot(data = drought_exp_clean, # data frame
        aes(x = sla, # x-axis
            y = total_g)) + # y-axis
@@ -167,14 +173,14 @@ You will then compare all 5 models to determine which best describes total bioma
 
 ## 0. Null model
 
-```{r}
+```{r null-model0}
 model0 <- lm(total_g ~ 1, # formula
              data = drought_exp_clean) # data frame
 ```
 
 ## 1. total biomass as a function of SLA, water treatment, and species
 
-```{r}
+```{r saturated-model1}
 # saturated model
 model1 <- lm(total_g ~ sla + water_treatment + species_name,
              data = drought_exp_clean)
@@ -186,19 +192,21 @@ plot(model1)
 
 ## 2. total biomass as a function of SLA and water treatment
 
-```{r}
+```{r simpler-model2}
 model2 <- lm(total_g ~ sla + water_treatment,
              data = drought_exp_clean)
 
+par(mfrow = c(2, 2))
 plot(model2)
 ```
 
 ## 3. total biomass as a function of SLA and species
 
-```{r}
+```{r simpler-model3}
 model3 <- lm(total_g ~ sla + species_name,
              data = drought_exp_clean)
 
+par(mfrow = c(2, 2))
 plot(model3)
 ```
 
@@ -206,7 +214,7 @@ plot(model3)
 
 From the `MuMIn` package
 
-```{r}
+```{r model-selection}
 model.sel(model0,
           model1, 
           model2, 
@@ -219,7 +227,7 @@ Note that this may change once you fit and compare the other model!
 
 # Model summary
 
-```{r}
+```{r model-summary}
 summary(model1)
 ```
 
@@ -249,7 +257,7 @@ Interpret the model estimates for the:
 
 **Note:** only plot terms in the model you select - if your doesn't include one of these terms, take it out and adjust the plotting code accordingly!
 
-```{r}
+```{r model-predictions-data-frame}
 model_preds <- ggpredict(model1, 
                          terms = c("sla",
                                    "water_treatment", 
@@ -263,7 +271,7 @@ model_preds <- ggpredict(model1,
 
 **Note:** this is the quick way to visualize model predictions. For your homework, you may find it easier to plot things yourself (i.e. not using the `plot()` functionality within `ggeffects`). See lecture for an example of how to do this.  
 
-```{r}
+```{r model-predictions-with-ggeffects}
 # plot function within ggeffects
 plot(model_preds, # model predictions
      limit_range = TRUE, # limit the range of predictions to the range of predictor values
@@ -276,7 +284,7 @@ plot(model_preds, # model predictions
 
 The "more customizable" way:
 
-```{r}
+```{r model-predictions-with-ggplot}
 # creating new data frame of model predictions for plotting
 model_preds_for_plotting <- model_preds %>% 
   rename(sla = x, # renaming columns to make this easier to use
@@ -314,7 +322,7 @@ ggplot() +
 
 # Making a table
 
-```{r}
+```{r model-tables}
 # one option for a single model
 flextable::as_flextable(model1) 
 
