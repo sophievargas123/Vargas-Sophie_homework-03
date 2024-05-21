@@ -1,0 +1,339 @@
+---
+title: "Homework starter document"
+format:
+  html: 
+    toc: true # includes a table of contents in rendered html format
+execute: # for all code chunks
+    warning: false # do not display warnings
+    message: false # do not display messages
+---
+
+**WARNING:** this document provides the foundation for your homework 3, but you will need to create your own neat, organized document to render for your homework submission. Create a new document for your homework in the `code` folder of this repository.   
+
+**You will not need all the information in this document to do your homework; IT IS YOUR JOB TO EDIT THE INFORMATION IN YOUR HOMEWORK DOCUMENT TO ONLY INCLUDE WHAT IS NECESSARY.**    
+
+**Relevant definitions:**  
+
+specific leaf area (SLA, units: mm^2^/g): surface area of a leaf divided by its dry mass, represents life strategy (high SLA = large surface area and low mass = "fast" species)  
+
+root mass (units: g): mass of root tissue  
+
+shoot mass (units: g): mass of aboveground tissue  
+
+# Set up
+
+## reading in packages
+
+```{r}
+# general use
+library(tidyverse)
+library(readxl)
+library(here)
+library(janitor)
+
+# visualizing pairs
+library(GGally)
+
+# model selection
+library(MuMIn)
+
+# model predictions
+library(ggeffects)
+
+# model tables
+library(gtsummary)
+library(flextable)
+library(modelsummary)
+
+drought_exp <- read_xlsx(path = here("data", 
+                                     "Valliere_etal_EcoApps_Data.xlsx"),
+                         sheet = "First Harvest")
+```
+
+## cleaning
+
+```{r}
+# cleaning
+drought_exp_clean <- drought_exp %>% 
+  clean_names() %>% # nicer column names
+  mutate(species_name = case_when( # adding column with species scientific names
+    species == "ENCCAL" ~ "Encelia californica", # bush sunflower
+    species == "ESCCAL" ~ "Eschscholzia californica", # California poppy
+    species == "PENCEN" ~ "Penstemon centranthifolius", # Scarlet bugler
+    species == "GRICAM" ~ "Grindelia camporum", # great valley gumweed
+    species == "SALLEU" ~ "Salvia leucophylla", # Purple sage
+    species == "STIPUL" ~ "Nasella pulchra", # Purple needlegrass
+    species == "LOTSCO" ~ "Acmispon glaber" # deerweed
+  )) %>% 
+  relocate(species_name, .after = species) %>% # moving species_name column after species
+  mutate(water_treatment = case_when( # adding column with full treatment names
+    water == "WW" ~ "Well watered",
+    water == "DS" ~ "Drought stressed"
+  )) %>% 
+  relocate(water_treatment, .after = water) # moving water_treatment column after water
+```
+
+# Visualizing
+
+## correlations 
+
+```{r}
+ggpairs(drought_exp_clean, # data frame
+        columns = c("leaf_dry_weight_g", # columns to visualize
+                    "sla", 
+                    "shoot_g", 
+                    "root_g", 
+                    "total_g"), 
+        upper = list(method = "pearson")) + # calculating Pearson correlation coefficient
+  theme_bw() + # cleaner theme
+  theme(panel.grid = element_blank()) # getting rid of gridlines
+```
+
+Choose 3 pairs of variables to compare. Make notes of those comparisons below.    
+
+Leaf weight has a positive relationship with total biomass (Pearson's r = 0.46).  
+
+SLA has a positive relationship with shoot mass (Pearson's r = 0.35).  
+
+Shoot mass has a positive relationship with root mass (Pearson's r = 0.55).
+
+## Preliminary visualizations  
+
+If you aren't familiar with each plant species, google them!  
+
+Then go exploring! Visually.  
+
+In this scenario, we're interested in how three variables affect total biomass: species (categorical), water treatment (categorical), specific leaf area (SLA, numeric).  
+
+**Note:** it is totally ok (and encouraged) to explore these separately!
+
+### how does total biomass differ between species?
+
+```{r}
+ggplot(data = drought_exp_clean, # data frame
+       aes(x = reorder(species_name, # reordering x-axis
+                       -total_g, # in reverse order of mean total mass
+                       fun = mean), # calculating mean to reorder
+           y = total_g)) + # y-axis
+  geom_jitter(width = 0.1, # narrow jitter
+              height = 0) # not jittering points up and down
+```
+
+**Greindelia has highest biomass, Lotus has lowest, seem to all be different**
+
+### how does total biomass differ between water treatments?
+
+```{r}
+ggplot(data = drought_exp_clean, # data frame
+       aes(x = water_treatment, # x-axis
+           y = total_g)) + # y-axis
+  geom_jitter(width = 0.1, # narrow jitter
+              height = 0) # not jittering points up and down
+```
+
+**mass in well watered treatment is higher than in drought stressed treatment**
+
+### how does specific leaf area (SLA) influence total biomass?
+
+```{r}
+ggplot(data = drought_exp_clean, # data frame
+       aes(x = sla, # x-axis
+           y = total_g)) + # y-axis
+  geom_point() # scatterplot
+```
+
+**SLA seems to have a positive relationship with total mass - as SLA increases, total mass does too**
+
+# Model construction
+
+What is the null model?  
+
+0. **total biomass is not predicted by any of these variables**  
+
+What is the saturated model?  
+
+1. **total biomass as a function of SLA, water treatment, and species**  
+
+In class we are going to try two more models:  
+
+2.  **total biomass as a function of SLA and water treatment**  
+3.  **total biomass as a function of SLA and species**  
+
+For homework, you will construct two more models:  
+
+4. **total biomass as a function of water treatment and species**  
+
+You will then compare all 5 models to determine which best describes total biomass. **For your homework, you will need to create a table summarizing the structure of these models.**
+
+## 0. Null model
+
+```{r}
+model0 <- lm(total_g ~ 1, # formula
+             data = drought_exp_clean) # data frame
+```
+
+## 1. total biomass as a function of SLA, water treatment, and species
+
+```{r}
+# saturated model
+model1 <- lm(total_g ~ sla + water_treatment + species_name,
+             data = drought_exp_clean)
+
+par(mfrow = c(2, 2))
+plot(model1)
+# you might get a warning when you run this code - that is ok!
+```
+
+## 2. total biomass as a function of SLA and water treatment
+
+```{r}
+model2 <- lm(total_g ~ sla + water_treatment,
+             data = drought_exp_clean)
+
+plot(model2)
+```
+
+## 3. total biomass as a function of SLA and species
+
+```{r}
+model3 <- lm(total_g ~ sla + species_name,
+             data = drought_exp_clean)
+
+plot(model3)
+```
+
+# Model selection
+
+From the `MuMIn` package
+
+```{r}
+model.sel(model0,
+          model1, 
+          model2, 
+          model3)
+```
+
+Out of the four models we have tried, the best model is the one that includes **insert predictors here**  
+
+Note that this may change once you fit and compare the other model!
+
+# Model summary
+
+```{r}
+summary(model1)
+```
+
+What are the reference levels?  
+
+- reference for `water_treatment`  
+- reference for `species_name`  
+
+**reference for water_treatment:** drought stressed  
+**reference for species_name:** Encelia californica  
+
+Interpret the model estimates for the:  
+
+- intercept  
+- SLA slope  
+- well watered estimate  
+- Lotus scoparius estimate  
+- Stipe pulcra estimate  
+
+**Intercept:** Encelia californica mass when SLA = 0 in drought stressed treatment  
+**slope:** across water treatment levels and species, for each 1 mm^2^/g increase in SLA, you would expect 0 increase in mass. Another way of stating this is: there is _no effect of SLA on mass_.  
+**well watered estimate:** across species and SLA OR on average, plants in well watered treatment are 0.12 ± 0.019 g greater than plants in drought stressed treatment  
+**_Lotus scoparius_ estimate:** across water treatments and SLA OR on average, _Lotus scoparius_ plants were -0.23 ± 0.032 g less than _Encelia californica_.  
+**_Stipa pulchra_ estimate:** across water treatments and SLA or on average, _Stipa pulchra_ plants are the same size as _Encelia californica plants._
+
+# Model predictions
+
+**Note:** only plot terms in the model you select - if your doesn't include one of these terms, take it out and adjust the plotting code accordingly!
+
+```{r}
+model_preds <- ggpredict(model1, 
+                         terms = c("sla",
+                                   "water_treatment", 
+                                   "species_name"))
+
+# use View(model_preds) to see the predictions as a data frame
+# use model_preds to see the predictions formatted nicely
+```
+
+# Visualization
+
+**Note:** this is the quick way to visualize model predictions. For your homework, you may find it easier to plot things yourself (i.e. not using the `plot()` functionality within `ggeffects`). See lecture for an example of how to do this.  
+
+```{r}
+# plot function within ggeffects
+plot(model_preds, # model predictions
+     limit_range = TRUE, # limit the range of predictions to the range of predictor values
+     show_data = TRUE) + # show the underlying data
+  # everything below this is ggplot() stuff
+  theme_classic() + # classic theme
+  labs(title = "Preliminary model visualization") + # plot title
+  theme(panel.grid = element_blank()) # getting rid of gridlines
+```
+
+The "more customizable" way:
+
+```{r}
+# creating new data frame of model predictions for plotting
+model_preds_for_plotting <- model_preds %>% 
+  rename(sla = x, # renaming columns to make this easier to use
+         water_treatment = group,
+         species_name = facet)
+
+# use View(model_preds_for_plotting) 
+# to compare this to the original model_preds data frame
+
+ggplot() +
+  # underlying data
+  geom_point(data = drought_exp_clean,
+             aes(x = sla,
+                 y = total_g,
+                 color = water_treatment)) +
+  # model prediction 95% CI ribbon
+  geom_ribbon(data = model_preds_for_plotting,
+              aes(x = sla, 
+                  y = predicted,
+                  ymin = conf.low,
+                  ymax = conf.high,
+                  fill = water_treatment),
+              alpha = 0.2) +
+  # model prediction lines
+  geom_line(data = model_preds_for_plotting,
+            aes(x = sla, 
+                y = predicted,
+                color = water_treatment)) +
+  # cleaner theme
+  theme_classic() +
+  # creating different panels for species
+  facet_wrap(~species_name) 
+```
+
+
+# Making a table
+
+```{r}
+# one option for a single model
+flextable::as_flextable(model1) 
+
+# another option for a single model
+gtsummary::tbl_regression(model1)
+
+# comparing models
+modelsummary::modelsummary( # this function takes a list of models
+  list( 
+    "null" = model0, # "model name" = model object
+    "model 1" = model1,
+    "model 2" = model2,
+    "model 3" = model3
+  )
+) 
+
+```
+
+**Note 1: notice all the information at the bottom of the `modelsummary` output - if you only needed the AIC and delta AIC, what could you do? see package documentation for help**
+
+**Note 2: you will always have to report the F-statistic, degrees of freedom, test statistic, p-value, ⍺, and R^2^. Whether or not this information is in a table is up to you.**
+
