@@ -159,7 +159,7 @@ In class we are going to try two more models:
 2.  **total biomass as a function of SLA and water treatment**  
 3.  **total biomass as a function of SLA and species**  
 
-For homework, you will construct two more models:  
+For homework, you will construct one more model:  
 
 4. **total biomass as a function of water treatment and species**  
 
