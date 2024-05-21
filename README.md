@@ -26,7 +26,7 @@
     └── Valliere_etal_EcoApps_Data.xlsx       # data
 ```
 
-# Rendered output (specifically for this class)
+# Rendered output
 
 The rendered .html for this repo is [here](https://an-bui.github.io/ENVS193DS_workshop-08/code/homework-starter-doc_KEY.html).
 
