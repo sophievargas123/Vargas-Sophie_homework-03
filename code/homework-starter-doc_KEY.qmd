@@ -48,6 +48,10 @@ library(modelsummary)
 drought_exp <- read_xlsx(path = here("data", 
                                      "Valliere_etal_EcoApps_Data.xlsx"),
                          sheet = "First Harvest")
+
+# quick look at data 
+str(drought_exp)
+class(drought_exp)
 ```
 
 ## cleaning
