@@ -7,21 +7,23 @@
 
 **Research focus**: examining effects of specific leaf area (mm^2^/g), water treatment (well-watered or drought-stressed), and species on plant mass  
 
+**Data source**: Valliere, Justin; Zhang, Jacqueline; Sharifi, M.; Rundel, Philip (2019). Data from: Can we condition native plants to increase drought tolerance and improve restoration success? [Dataset]. Dryad. https://doi.org/10.5061/dryad.v0861f7  
+
 # Data and file overview
 
 ```
 .
 ├── ENVS193DS_workshop-08.Rproj
-├── README.md
+├── README.md                                 # information about the repository
 ├── code
-│   ├── homework-starter-doc_KEY.html
-│   ├── homework-starter-doc_KEY.qmd
-│   ├── homework-starter-doc_KEY_files
-│   │   ├── figure-html
-│   │   └── libs
-│   └── homework-starter-doc_TEMPLATE.qmd
+│   ├── homework-starter-doc_KEY.html         # rendered HTML of key code
+│   ├── homework-starter-doc_KEY.qmd          # key code file
+│   ├── homework-starter-doc_KEY_files        # files associated with rendered HTML
+│   │   ├── figure-html                       # all figure outputs (explore this file!)
+│   │   └── libs                              # accessory files for HTML
+│   └── homework-starter-doc_TEMPLATE.qmd     # template code file
 └── data
-    └── Valliere_etal_EcoApps_Data.xlsx
+    └── Valliere_etal_EcoApps_Data.xlsx       # data
 ```
 
 # Rendered output (specifically for this class)
