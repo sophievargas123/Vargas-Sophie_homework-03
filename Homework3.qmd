@@ -18,6 +18,5 @@ library(modelsummary)
 ```
 
 ```{r}
-
-
+#try to move this doc into code file to use and get rid of other ones i tried to make
 ```
