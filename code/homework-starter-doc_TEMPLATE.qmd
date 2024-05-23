@@ -241,7 +241,7 @@ What are the reference levels?
 - reference for `species_name`  
 
 **reference for water_treatment:** **water_treatment_Drought_stress**  
-**reference for species_name:** **species_nameAcmispan**  
+**reference for species_name:** **species_nameAcmispan**   
 
 Interpret the model estimates for the:  
 
