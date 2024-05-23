@@ -1,0 +1,23 @@
+---
+title: "Homework 3"
+format: html
+editor: visual
+---
+
+```{r}
+library(tidyverse)
+library(readxl)
+library(here)
+library(janitor)
+library(GGally)
+library(MuMIn)
+library(ggeffects)
+library(gtsummary)
+library(flextable)
+library(modelsummary)
+```
+
+```{r}
+
+
+```
