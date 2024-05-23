@@ -95,11 +95,11 @@ ggpairs(drought_exp_clean, # data frame
 
 Choose 3 pairs of variables to compare. Make notes of those comparisons below.    
 
-**insert comparison 1 here**  
+**The total mass is strongly positively correlated with the mass of the shoots (Pearson's r = 0.902).**  
 
-**insert comparison 2 here**  
+**The shoot mass is positively correlated with the specific leaf area (Pearson's r = 0.348).**  
 
-**insert comparison 3 here**
+**The root mass is positively correlated with the shoot mass (Pearson's r = 0.553). **
 
 ## Preliminary visualizations  
 
@@ -123,7 +123,7 @@ ggplot(data = drought_exp_clean, # data frame
               height = 0) # not jittering points up and down
 ```
 
-**response here**
+**Plants with larger biomass seem to have larger ranges. Grindelia has highest biomass and Acrispon has lowest biomass.**
 
 ### how does total biomass differ between water treatments?
 
@@ -135,7 +135,7 @@ ggplot(data = drought_exp_clean, # data frame
               height = 0) # not jittering points up and down
 ```
 
-**response here**
+**The total biomass is lower in the drought stressed water treatment compared to the well watered treatment. Well watered plants tend to have larger biomass. This makes sense based on how plants work.**
 
 ### how does specific leaf area (SLA) influence total biomass?
 
@@ -146,17 +146,17 @@ ggplot(data = drought_exp_clean, # data frame
   geom_point() # scatterplot
 ```
 
-**response here**
+**Specific leaf area doesn't really effect total biomass when looking visually but it is important to check correlation to compare visual and statistical.**
 
 # Model construction
 
 What is the null model?  
 
-0. **null model here**  
+0. **total mass is not predicted by any of the three predictors.**  
 
 What is the saturated model?  
 
-1. **saturated model here**  
+1. **total mass predicted by SLA, water treatment, and species.**  
 
 In class we are going to try two more models:  
 
@@ -190,6 +190,8 @@ plot(model1)
 
 ## 2. total biomass as a function of SLA and water treatment
 
+Diagnostics for saturated model look good.
+
 ```{r}
 model2 <- lm(total_g ~ sla + water_treatment,
              data = drought_exp_clean)
@@ -199,12 +201,16 @@ plot(model2)
 
 ## 3. total biomass as a function of SLA and species
 
+***Look at diagnostics later!***
+
 ```{r}
 model3 <- lm(total_g ~ sla + species_name,
              data = drought_exp_clean)
 
 plot(model3)
 ```
+
+***Look at the diagnositics later!***
 
 # Model selection
 
@@ -216,10 +222,12 @@ model.sel(model0,
           model2, 
           model3)
 ```
+**AIC fro best model is always 0**
 
-Out of the four models we have tried, the best model is the one that includes **insert predictors here**  
+Out of the four models we have tried, the best model is the one that includes **Of the four models we have tried, the bes model is the one that contaons all three predictores ( sla, water treatment, species)**  
 
 Note that this may change once you fit and compare the other model!
+***look at diagnostics again***
 
 # Model summary
 
@@ -232,14 +240,15 @@ What are the reference levels?
 - reference for `water_treatment`  
 - reference for `species_name`  
 
-**reference for water_treatment:** **insert response here**  
-**reference for species_name:** **insert response here**  
+**reference for water_treatment:** **water_treatment_Drought_stress**  
+**reference for species_name:** **species_nameAcmispan**  
 
 Interpret the model estimates for the:  
 
-- intercept: **insert response here**  
-- SLA slope: **insert response here**  
-- well watered estimate: **insert response here**    
+- intercept: **mass of Acmispan glober in drought stressed treatment when SLA = 0**  
+- SLA slope: **across drought tretaments and species, with each 1 unit increase in SLA (mm^2/dry mass of leaf), we expect an increase in total mass of -0.00025 WHICH MEANS WITH THE ESTIMATE NAD STANDARD ERROR THER EIS NO EFFECT OF SLA ON TOTAL MASS.**  
+- well watered estimate: **Across species and SLA, well watered plants tend to be 0.12 +- (figure out how to write plus and minus in text) 0.02 g heavier than drought stressed plants.** 
+
 - Lotus scoparius estimate: **insert response here**    
 - Stipa pulchra estimate: **insert response here**    
 
