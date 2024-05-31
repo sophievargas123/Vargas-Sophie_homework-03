@@ -58,7 +58,6 @@ drought_exp_clean <- drought_exp %>%
 ```
 
 #visualizing
-
 ##correlations
 
 ```{r}
@@ -149,11 +148,13 @@ plot(model3)
 ```
 
 
-#my own model
-**total biomass as a function of water treatment and species**
+#my own model: total biomass as a function of water treatment and species
 
 ```{r}
+model4 <- lm(total_g ~ water_treatment + species_name,
+             data = drought_exp_clean)
 
+plot(model4)
 ```
 
 
