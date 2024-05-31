@@ -57,9 +57,8 @@ drought_exp_clean <- drought_exp %>%
   relocate(water_treatment, .after = water) # moving water_treatment column after water
 ```
 
-#visualizing ##correlations
-
 ```{r}
+#visualizing and making correlation for background info
 ggpairs(drought_exp_clean, # data frame
         columns = c("leaf_dry_weight_g", # columns to visualize
                     "sla", 
@@ -156,7 +155,9 @@ model4 <- lm(total_g ~ water_treatment + species_name,
 plot(model4)
 ```
 
-## Table of all models
+## Problem 1
+
+## A) Table of all models
 
 ```{r}
 # comparing models in table
@@ -169,10 +170,13 @@ modelsummary::modelsummary( # this function takes a list of models
     "model 4" = model4))
 ```
 
-#Caption: 
+## Caption:
 
+## B) Statistical Methods
 
-*for C)
+\*insert paragraph answer
+
+## C) Visualization
 
 ```{r}
 model.sel(model0,
@@ -181,3 +185,26 @@ model.sel(model0,
           model3,
           model4)
 ```
+```{r}
+
+ggpredict(model1, 
+                         terms = c("sla",
+                                   "water_treatment", 
+                                   "species_name"))
+ggpredict(model2, 
+                         terms = c("sla", 
+                                   "water_treatment"))
+ggpredict(model3, 
+                         terms = c("sla", 
+                                   "species_name"))
+ggpredict(model4, 
+                         terms = c("water_treatment", 
+                                   "species_name"))
+```
+
+
+## Caption:
+
+## E) Results
+
+
