@@ -57,8 +57,7 @@ drought_exp_clean <- drought_exp %>%
   relocate(water_treatment, .after = water) # moving water_treatment column after water
 ```
 
-#visualizing
-##correlations
+#visualizing ##correlations
 
 ```{r}
 ggpairs(drought_exp_clean, # data frame
@@ -74,6 +73,7 @@ ggpairs(drought_exp_clean, # data frame
 ```
 
 ### how does total biomass differ between species?
+
 ```{r}
 ggplot(data = drought_exp_clean, # data frame
        aes(x = reorder(species_name, # reordering x-axis
@@ -110,6 +110,7 @@ ggplot(data = drought_exp_clean, # data frame
 **Specific leaf area doesn't really effect total biomass when looking visually but it is important to check correlation to compare visual and statistical.**
 
 ## 0. Null model
+
 ```{r}
 model0 <- lm(total_g ~ 1, # formula
              data = drought_exp_clean) # data frame
@@ -125,7 +126,6 @@ model1 <- lm(total_g ~ sla + water_treatment + species_name,
 par(mfrow = c(2, 2))
 plot(model1)
 ```
-
 
 ## 2. total biomass as a function of SLA and water treatment
 
@@ -147,8 +147,7 @@ model3 <- lm(total_g ~ sla + species_name,
 plot(model3)
 ```
 
-
-#my own model: total biomass as a function of water treatment and species
+## 4. my own model: total biomass as a function of water treatment and species
 
 ```{r}
 model4 <- lm(total_g ~ water_treatment + species_name,
@@ -157,13 +156,28 @@ model4 <- lm(total_g ~ water_treatment + species_name,
 plot(model4)
 ```
 
+## Table of all models
+
+```{r}
+# comparing models in table
+modelsummary::modelsummary( # this function takes a list of models
+  list( 
+    "null" = model0, # "model name" = model object
+    "model 1" = model1,
+    "model 2" = model2,
+    "model 3" = model3,
+    "model 4" = model4))
+```
+
+#Caption: 
 
 
+*for C)
 
-
-
-
-
-
-
-
+```{r}
+model.sel(model0,
+          model1, 
+          model2, 
+          model3,
+          model4)
+```
