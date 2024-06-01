@@ -170,14 +170,6 @@ modelsummary::modelsummary( # this function takes a list of models
     "model 4" = model4))
 ```
 
-## Caption:
-
-## B) Statistical Methods
-
-\*insert paragraph answer
-
-## C) Visualization
-
 ```{r}
 model.sel(model0,
           model1, 
@@ -185,6 +177,17 @@ model.sel(model0,
           model3,
           model4)
 ```
+
+## Caption:
+
+Table 1: Models with Predictors. This table represents the models, in each row, with their respective predictors, in each column. The right side of the table includes the comparative statistics such as the AIC, delta, and weight values.
+
+## B) Statistical Methods
+
+To examine the influence of the species, water treatment, and specific leaf areas on the total biomass, I created five different models comparing these variables to determine which one best describes total biomass. To determine the model that best described total biomass, I compared all of the models in a table and found the one that conformed to assumptions of linear models and had an AIC value of 0 which was model 4. To evaluate linear model assumptions, I made visualizations of each model and analyzed the homoscedasticity, normality, and outliers.
+
+## C) Visualization
+
 ```{r}
 
 ggpredict(model1, 
@@ -237,9 +240,6 @@ ggplot() +
   facet_wrap(~species_name) 
 ```
 
-
 ## Caption:
 
 ## E) Results
-
-
