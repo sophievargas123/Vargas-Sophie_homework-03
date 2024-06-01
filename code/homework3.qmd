@@ -4,6 +4,8 @@ format: html
 editor: visual
 ---
 
+## Problem 1.
+
 ```{r}
 ## reading in packages
 
@@ -175,7 +177,7 @@ summary(model3)
 summary(model4)
 ```
 
-## Problem 1
+## 
 
 ## A) Table of all models
 
@@ -271,3 +273,23 @@ This figure represents the relationship between SLA and total growth under diffe
 ## E) Results
 
 In this analysis, I found that the predictors that best described the total biomass were the water treatment and species. As shown in the model 4 summary, the residual standard error is 0.072 on 62 degrees of freedom, an R-squared value of 0.72, F-statistic of 27.08, a p-value of \<0.001, an AIC of 0, and visually it conformed to assumptions of linear models. On average, the well watered treatments had a larger total mass across all species. When examining the differences between species, I found notable variations in total biomass between Acmispon glaber exhibiting the lowest average mass and Grindelia camporum showing the highest. These findings underscore the importance of considering both environmental factors, such as water treatment, and biological factors, such as species differences, when evaluating total mass in this analysis.
+
+## Problem 2.
+
+## A) 
+
+An affective visualization for my personal data could take the form of a dynamic, interactive family tree. Each branch or node of the tree represents a family member, and the size, color, or movement of the branches reflects the frequency and duration of phone calls with each individual. This affective visualization will aim to convey the depth and complexity of familial relationships through the lens of phone conversations, fostering emotional connections and prompting the viewers to reflect on the significance of their interactions with family members over time. I think this could also work as a series of drawings, the first being the entire tree, then a page that focuses on each branch and include all the details from my data for each individual.
+
+## B)
+
+ADD PHOTO OF SKETCH HERE
+
+## C)
+
+ADD PHOTO OF DRAFT HERE
+
+## D)
+
+In my piece, I explore the dynamic of my cellular connections with my family members through a dynamic family tree. My first draft is a series of digital drawings where I first show each family member as their own branch on a large tree. Each branch is unique to the specific data for that individual including total duration I have spent on the phone with them, the general mood I was in speaking with them, and the frequency of which I spoke to them. I decided to do a digital art piece because I thought that would be the most effective way to visually represent my data in a way that others can connect with. The following drawings are of each branch close up to offer more details for each individual. I was influenced by the beautiful trees in my backyard at home, techniques of digital art that I found when exploring the internet, and a color scheme that I was exposed to while outside drawing. I created my first draft on my IPad using an app called Goodnotes and experimented with various pen styles and added photos of my family members from my camera roll.
+
+## Problem 3.
