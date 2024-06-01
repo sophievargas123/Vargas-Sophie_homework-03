@@ -155,6 +155,26 @@ model4 <- lm(total_g ~ water_treatment + species_name,
 plot(model4)
 ```
 
+```{r}
+summary(model0)
+```
+
+```{r}
+summary(model1)
+```
+
+```{r}
+summary(model2)
+```
+
+```{r}
+summary(model3)
+```
+
+```{r}
+summary(model4)
+```
+
 ## Problem 1
 
 ## A) Table of all models
@@ -180,7 +200,9 @@ model.sel(model0,
 
 ## Caption:
 
-Table 1: Models with Predictors. This table represents the models, in each row, with their respective predictors, in each column. The right side of the table includes the comparative statistics such as the AIC, delta, and weight values.
+Table 1: Models with Predictors
+
+This table represents the models, in each row, with their respective predictors, in each column. The right side of the table includes the comparative statistics such as the AIC, delta, and weight values.
 
 ## B) Statistical Methods
 
@@ -242,4 +264,10 @@ ggplot() +
 
 ## Caption:
 
+Figure 1: Relationship Between Specific Leaf Area (SLA) and Total Growth Across Different Water Treatments and Species
+
+This figure represents the relationship between SLA and total growth under different water treatments with separate panels for each species. The underlying data points are represented by blue, green, and red dots for the different water treatments. The lines represent model predictions, and the shaded areas around these lines show the 95% confidence intervals for the predictions. The visualization highlights how SLA and water treatment affect total growth for each species, with the confidence intervals indicating the uncertainty around the predictions. Data source: Valliere, Justin; Zhang, Jacqueline; Sharifi, M.; Rundel, Philip (2019). Data from: Can we condition native plants to increase drought tolerance and improve restoration success? \[Dataset\]. Dryad. <https://doi.org/10.5061/dryad.v0861f7>
+
 ## E) Results
+
+In this analysis, I found that the predictors that best described the total biomass were the water treatment and species. As shown in the model 4 summary, the residual standard error is 0.072 on 62 degrees of freedom, an R-squared value of 0.72, F-statistic of 27.08, a p-value of \<0.001, an AIC of 0, and visually it conformed to assumptions of linear models. On average, the well watered treatments had a larger total mass across all species. When examining the differences between species, I found notable variations in total biomass between Acmispon glaber exhibiting the lowest average mass and Grindelia camporum showing the highest. These findings underscore the importance of considering both environmental factors, such as water treatment, and biological factors, such as species differences, when evaluating total mass in this analysis.
