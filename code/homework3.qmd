@@ -1,8 +1,15 @@
 ---
 title: "homework_3"
+author: Sophie Vargas
 format: html
 editor: visual
 ---
+
+Sophie Vargas
+
+6/1/24
+
+GitHub repository: <https://github.com/sophievargas123/Vargas-Sophie_homework-03>
 
 ## Problem 1.
 
