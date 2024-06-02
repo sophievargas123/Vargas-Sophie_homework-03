@@ -282,14 +282,34 @@ An affective visualization for my personal data could take the form of a dynamic
 
 ## B)
 
-ADD PHOTO OF SKETCH HERE
+![](images/IMG_0269.jpeg){width="392"}
 
 ## C)
 
-ADD PHOTO OF DRAFT HERE
+![](images/IMG_0270.jpeg){width="397"}
+
+![](images/IMG_0272.jpeg){width="397"}
 
 ## D)
 
 In my piece, I explore the dynamic of my cellular connections with my family members through a dynamic family tree. My first draft is a series of digital drawings where I first show each family member as their own branch on a large tree. Each branch is unique to the specific data for that individual including total duration I have spent on the phone with them, the general mood I was in speaking with them, and the frequency of which I spoke to them. I decided to do a digital art piece because I thought that would be the most effective way to visually represent my data in a way that others can connect with. The following drawings are of each branch close up to offer more details for each individual. I was influenced by the beautiful trees in my backyard at home, techniques of digital art that I found when exploring the internet, and a color scheme that I was exposed to while outside drawing. I created my first draft on my IPad using an app called Goodnotes and experimented with various pen styles and added photos of my family members from my camera roll.
 
 ## Problem 3.
+
+## A)
+
+The authors are investigating the effects of various macro algae species on methane production and rumen fermentation in ruminants, as well as assessing the potential of macro algae as a feed ingredient to enhance ruminant production in the livestock industry. This paper uses statistical methods of linear regression, the Tukey Kramer's Test, and both in vitro and in vivo studies.
+
+![](images/Image 6-1-24 at 4.34 PM.jpg){width="518"}
+
+## B)
+
+The authors were able to visually represent their data in Fig . 3 clearly, but it could be better. The x-axis and y-axis are in logical positions and there are a few summary statistics included like the line of best fit, R squared value, and number of observations. There is no standard error incorporated. There is underlying data represented with the specific observation data points.
+
+## C)
+
+I think the authors handled visual clutter very well. The graphs are concise and simple to understand and they managed to convey information without overwhelming the viewer with unnecessary details. The data to ink ratio is high because there was an efficient use of graphical elements to portray the most important information. I think the elements of this figure are essential and there is little clutter.
+
+## D)
+
+I believe the authors did a good job with this fugure overall, however I would recommend they make a few adjustments and additions to make this figure better. Adding color to this figure so it is not just black and white would draw the viewers attention immediately to the most crucial information on the graphs and help distinguish the differences between the two graphs. The graphs could also benefit from having the statistical values in a larger font size because it is important to have graphical elements that are legible and easy to interpret, especially when viewing the figure at different scales or on different devices.
